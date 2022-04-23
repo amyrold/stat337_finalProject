@@ -1,15 +1,27 @@
-library(dplyr)
-library(ggplot2)
-setwd()
-mortality <- data.frame(read.csv('stmf.csv'))
+obesity <- read.csv('ObesityDataSet_raw_and_data_sinthetic.csv')
 
+#################################################################################################################
+#Backwards Selection (5%)
 
-yearly_deathrate_by_country <- subset(mortality,Year != 2022) %>% group_by(CountryCode,Year) %>% dplyr::summarize(RTotal=sum(RTotal)) %>% as.data.frame()
-yearly_deathrate_by_country
+#Remove missing values
+obesity <- obesity[complete.cases(obesity), ]
+#Convert categorical to numerical values and convert to dataframe
+obesity.num <- data.matrix(obesity)
+obesity.num <- data.frame(obesity.num)
 
-ggplot(data=yearly_deathrate_by_country,mapping=aes(x=Year,y=RTotal,colour=CountryCode))+geom_point()+geom_smooth()
+#Linear regression with all predictors
+lm.model1 <- lm(NObeyesdad~.,data=obesity.num)
+summary(lm.model1)
 
-yearly_deathrate_USA_NLD <- subset(yearly_deathrate_by_country,(CountryCode == 'USA' | CountryCode == 'NLD') & Year >= 2015)
-yearly_deathrate_USA_NLD 
+#Remove TUE (time using technology devices)
+lm.model2 <- lm(NObeyesdad~Gender+Age+Height+Weight+family_history_with_overweight+FAVC+FCVC+NCP+CAEC+SMOKE+CH2O+SCC+FAF+CALC+MTRANS,data=obesity.num)
+summary(lm.model2)
 
-ggplot(data=yearly_deathrate_USA_NLD,mapping=aes(x=Year,y=RTotal,colour=CountryCode))+geom_point()+geom_smooth()
+#Remove CALC (Consumption of alcohol)
+lm.model3 <- lm(NObeyesdad~Gender+Age+Height+Weight+family_history_with_overweight+FAVC+FCVC+NCP+CAEC+SMOKE+CH2O+SCC+FAF+MTRANS,data=obesity.num)
+summary(lm.model3)
+
+#Remove Gender
+lm.model4 <- lm(NObeyesdad~Age+Height+Weight+family_history_with_overweight+FAVC+FCVC+NCP+CAEC+SMOKE+CH2O+SCC+FAF+MTRANS,data=obesity.num)
+summary(lm.model4) #Most significant predictors are Weight, CAEC, Age, family_history_with_overweight, NCP, FAVC, Height, FCVC
+#################################################################################################################
