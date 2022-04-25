@@ -1,5 +1,6 @@
 # General ----
 # Questions and Motivation ----
+# Looking at the correlation between quality of healthcare and death rates. 
 
 # R version
 R.version.string # "R version 4.0.2 (2020-06-22)"
