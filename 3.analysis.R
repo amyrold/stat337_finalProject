@@ -25,3 +25,25 @@ summary(lm.model3)
 lm.model4 <- lm(NObeyesdad~Age+Height+Weight+family_history_with_overweight+FAVC+FCVC+NCP+CAEC+SMOKE+CH2O+SCC+FAF+MTRANS,data=obesity.num)
 summary(lm.model4) #Most significant predictors are Weight, CAEC, Age, family_history_with_overweight, NCP, FAVC, Height, FCVC
 #################################################################################################################
+#PCA
+
+#PCA of only innately numerical values
+obesityPr <- prcomp(obesity[,c(2:4,7,8,11,13,14)], scale = TRUE)
+plot(scale(obesity$Weight), scale(obesity$Age))
+
+summary(obesityPr)
+plot(obesityPr, type = "l")
+biplot(obesityPr, scale = 0)
+
+str(obesityPr)
+obesityPr$x
+obesity2 <- cbind(obesity, obesityPr$x[,1:2])
+head(obesity2)
+
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(obesity2, aes(PC1,PC2, col = family_history_with_overweight, fill = family_history_with_overweight)) +
+  stat_ellipse(geom = 'polygon', col = 'black', alpha = 0.5) +
+  geom_point(shape = 21, col = 'black')
+
+
