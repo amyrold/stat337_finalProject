@@ -36,11 +36,6 @@ summary(lm.model5)
 #PCA done according to our class code
 obesity.data <- obesity[,c(2:4,7,8,11,13,14)]
 
-obesity.gender <- obesity$Gender
-obesity.smoke <- obesity$SMOKE
-obesity.FCVC <- obesity$FCVC
-obesity.FAVC <- obesity$FAVC
-obesity.history <- obesity$family_history_with_overweight
 
 pr.out <- prcomp(obesity.data, scale = TRUE)
 phi <- pr.out$rotation
@@ -48,7 +43,7 @@ dim(phi)
 Z <- pr.out$x
 dim(Z)
 summary(pr.out)
-plot(Z[,1:2], pch = 19, col = as.numeric(as.factor(obesity.history)), xlab = "PC1", ylab = "PC2")
+plot(Z[,1:2], pch = 19, col = as.numeric(as.factor(obesity$family_history_with_overweight)), xlab = "PC1", ylab = "PC2")
 plot(pr.out)
 #First two PCs only account for 41% of the variability, so acknowledges the complexity of the issue
 
@@ -56,7 +51,7 @@ plot(pr.out)
 
 #PCA of only innately numerical values done using external methods/packages
 obesityPr <- prcomp(obesity[,c(2:4,7,8,11,13,14)], scale = TRUE)
-plot(scale(obesity$Weight), scale(obesity$FCVC))
+#plot(scale(obesity$Weight), scale(obesity$Age))
 
 summary(obesityPr)
 plot(obesityPr, type = "l")
@@ -69,8 +64,16 @@ head(obesity2)
 
 install.packages("ggplot2")
 library(ggplot2)
-ggplot(obesity2, aes(PC1,PC2, col = Weight, fill = Weight)) +
+ggplot(obesity2, aes(PC1,PC2, col = FAVC, fill = FAVC)) +
   stat_ellipse(geom = 'polygon', col = 'black', alpha = 0.5) +
   geom_point(shape = 21, col = 'black')
+
+##########################################################################################
+Ideas from others
+within cluster variation for number of clusters
+K-means of number of within cluster variation
+
+hierarchical clustering?
+  
 
 
