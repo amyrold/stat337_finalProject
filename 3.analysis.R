@@ -1,4 +1,5 @@
 obesity <- read.csv('ObesityDataSet_raw_and_data_sinthetic.csv')
+#obesity <- read.csv('a.data.raw/ObesityDataSet_raw_and_data_sinthetic.csv')
 
 #################################################################################################################
 #Backwards Selection (5%)
@@ -72,5 +73,25 @@ library(ggplot2)
 ggplot(obesity2, aes(PC1,PC2, col = Weight, fill = Weight)) +
   stat_ellipse(geom = 'polygon', col = 'black', alpha = 0.5) +
   geom_point(shape = 21, col = 'black')
+
+###############################################################################
+# k-means clustering
+obesity <- read.csv('a.data.raw/ObesityDataSet_raw_and_data_sinthetic.csv')
+#Remove missing values
+obesity <- obesity[complete.cases(obesity), ]
+#Convert categorical to numerical values and convert to dataframe
+obesity.num <- data.matrix(obesity)
+obesity.num <- data.frame(obesity.num)
+
+#select desired traits
+obesity.select <- obesity.num[,-c(1,10,14,15)]
+
+obesity.scaled <- scale(obesity.num)
+fviz_nbclust(obesity.scaled, kmeans, method = 'wss') #elbow at 9 clusters
+
+#perform kmeans clustering
+kmeans.os <- kmeans(obesity.scaled, centers = 4, nstart = 20)
+#plot results of final k-means model
+fviz_cluster(kmeans.os, data = obesity.scaled)
 
 

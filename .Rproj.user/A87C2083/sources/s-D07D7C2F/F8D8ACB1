@@ -3,9 +3,9 @@
     "path": "~/Documents/Folder/01 School/01 LUC/03 Junior/02 Spring/stats/stat337_finalProject/1.main.R",
     "project_path": "1.main.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "2626043067",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1649352200190.0,
     "source_on_save": false,
     "relative_order": 1,
@@ -17,11 +17,11 @@
         "scrollLine": "19"
     },
     "folds": "",
-    "lastKnownWriteTime": 1649952809,
+    "lastKnownWriteTime": 1651118014,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1651094473112,
+    "last_content_update": 1651118014694,
     "read_only": false,
     "read_only_alternatives": []
 }
