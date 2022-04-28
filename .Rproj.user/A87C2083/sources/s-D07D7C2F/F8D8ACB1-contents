@@ -51,6 +51,10 @@ source("4.functions.R")
 #==============================================================================#
 
 # Libraries ----
+install.packages('factoextra')
+library(factoextra)
+install.packages('cluster')
+library(cluster)
 # load libraries needed for our analyses
 
 #==============================================================================#
