@@ -86,10 +86,11 @@ obesity.scaled <- scale(obesity.num)
 fviz_nbclust(obesity.scaled, kmeans, method = 'wss') #elbow at 9 clusters
 
 #perform kmeans clustering
-kmeans.os <- kmeans(obesity.scaled, centers = 4, nstart = 20)
+kmeans.os <- kmeans(obesity.scaled, centers = 3, nstart = 20)
 #plot results of final k-means model
-fviz_cluster(kmeans.os, data = obesity.scaled)
-
+fviz_cluster(kmeans.os, data = obesity.select)
+#aggregate data based on k-means clustering
+aggregate(obesity.select, by=list(cluster=kmeans.os$cluster), mean)
 
 
 ##########################################################################################

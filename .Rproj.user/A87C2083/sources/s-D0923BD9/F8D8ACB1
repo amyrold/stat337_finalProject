@@ -3,7 +3,7 @@
     "path": "~/Documents/Folder/01 School/01 LUC/03 Junior/02 Spring/stats/stat337_finalProject/1.main.R",
     "project_path": "1.main.R",
     "type": "r_source",
-    "hash": "2626043067",
+    "hash": "590654325",
     "contents": "",
     "dirty": false,
     "created": 1649352200190.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "57,0",
-        "scrollLine": "19"
+        "cursorPosition": "58,16",
+        "scrollLine": "40"
     },
     "folds": "",
-    "lastKnownWriteTime": 1651118014,
+    "lastKnownWriteTime": 1651120360,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1651118014694,
+    "last_content_update": 1651120360091,
     "read_only": false,
     "read_only_alternatives": []
 }

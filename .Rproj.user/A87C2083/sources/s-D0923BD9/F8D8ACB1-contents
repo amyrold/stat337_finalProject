@@ -55,6 +55,8 @@ install.packages('factoextra')
 library(factoextra)
 install.packages('cluster')
 library(cluster)
+install.packages("ggplot2")
+library(ggplot2)
 # load libraries needed for our analyses
 
 #==============================================================================#
