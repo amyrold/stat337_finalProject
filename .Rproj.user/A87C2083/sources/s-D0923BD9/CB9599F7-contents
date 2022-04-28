@@ -92,6 +92,66 @@ fviz_cluster(kmeans.os, data = obesity.select)
 #aggregate data based on k-means clustering
 aggregate(obesity.select, by=list(cluster=kmeans.os$cluster), mean)
 
+centroids <- data.frame(kmeans.os$centers)
+
+matplot(t(centroids), type = 'l', xaxt = 'n')
+legend("top", legend = seq_len(nrow(centroids)),
+       col= seq_len(nrow(centroids)),cex=0.8,
+       fill=seq_len(nrow(centroids)))
+axis(1, at = 1:17, colnames(centroids))
+
+################################################################################
+#hierarhical clustering
+#use same scaled dataframe as before
+#define linkage methods
+m <- c( "average", "single", "complete", "ward")
+names(m) <- c( "average", "single", "complete", "ward")
+
+#function to compute agglomerative coefficient
+ac <- function(x) {
+  agnes(obesity.scaled, method = x)$ac
+}
+
+#calculate agglomerative coefficient for each clustering linkage method
+print(sapply(m, ac)) #ward produces highest agglomerative coefficient
+#perform the clustering
+ob.clust <- agnes(obesity.scaled, method='ward')
+
+#produce the dendrogram
+pltree(ob.clust, cex=0.6, hang=-1, main='Dendrogram')
+
+#calculate gap statistic for each number of clusters (up to 10 clusters)
+gap_stat <- clusGap(obesity.scaled, FUN = hcut, nstart = 25, K.max = 10, B = 50)
+
+#produce plot of clusters vs. gap statistic
+fviz_gap_stat(gap_stat)
+
+#compute distance matrix
+d <- dist(obesity.scaled, method = "euclidean")
+
+#perform hierarchical clustering using Ward's method
+final_clust <- hclust(d, method = "ward.D2" )
+
+#cut the dendrogram into 4 clusters
+groups <- cutree(final_clust, k=4)
+
+#find number of observations in each cluster
+table(groups)
+
+#append cluster labels to original data
+final_data <- cbind(obesity.select, cluster = groups)
+
+#display first six rows of final data
+head(final_data)
+
+#find mean values for each cluster
+aggregate(final_data, by=list(cluster=final_data$cluster), mean)
+
+
+
+
+
+
 
 ##########################################################################################
 #Ideas from others
