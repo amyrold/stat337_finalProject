@@ -35,7 +35,7 @@ summary(lm.model5)
 #PCA
 
 #PCA done according to our class code
-obesity.data <- obesity[,c(2:4,7,8,11,13,14)]
+obesity.data <- obesity[,c(2,7,8,11,13,14)]
 
 
 pr.out <- prcomp(obesity.data, scale = TRUE)
@@ -51,8 +51,8 @@ plot(pr.out)
 
 
 #PCA of only innately numerical values done using external methods/packages
-obesityPr <- prcomp(obesity[,c(2:4,7,8,11,13,14)], scale = TRUE)
-#plot(scale(obesity$Weight), scale(obesity$Age))
+obesityPr <- prcomp(obesity[,c(2,7,8,11,13,14)], scale = TRUE)
+
 
 summary(obesityPr)
 plot(obesityPr, type = "l")
@@ -65,8 +65,7 @@ head(obesity2)
 
 install.packages("ggplot2")
 library(ggplot2)
-ggplot(obesity2, aes(PC1,PC2, col = FAVC, fill = FAVC)) +
-  stat_ellipse(geom = 'polygon', col = 'black', alpha = 0.5) +
+ggplot(obesity2, aes(PC1,PC2, col = TUE, fill = TUE)) +
   geom_point(shape = 21, col = 'black')
 
 
